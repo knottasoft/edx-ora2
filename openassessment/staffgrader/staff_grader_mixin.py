@@ -151,7 +151,7 @@ class StaffGraderMixin:
         # Pull out three sets from the workflows for use later
         submission_uuids, workflow_scorer_ids, assessment_ids = set(), set(), set()
         for workflow in staff_workflows:
-            submission_uuids.add(workflow.identifying_uuid)
+            submission_uuids.add(workflow.identifying_uuid) # Oh nice. No change needed here.
             if workflow.assessment:
                 assessment_ids.add(workflow.assessment)
             if workflow.scorer_id:
@@ -164,19 +164,28 @@ class StaffGraderMixin:
         submission_uuids_to_student_id = get_student_ids_by_submission_uuid(
             course_id,
             submission_uuids,
-        )
+        ) # We're gonna need to change this. Maybe get rid of it?
 
         # Do bulk lookup for all anonymous ids. This is used for team + individual for
         # looking up username of "scorer", and to provide "username" for individual
         # assignments
         anonymous_ids_to_usernames = map_anonymized_ids_to_usernames(
             set(submission_uuids_to_student_id.values()) | workflow_scorer_ids
-        )
+        ) # We're only gonna want workflow scorer ids here
+        
+        # We will need to look up Team Name at some point? Where is team name stored?
+        # Team Submission has team id. so we'll have to write get_team_ids_by_team_submission_uuids.
+        # get_all_team_submissions is a possibility, but that also includes submission_uuids and the answers, which for a whole course
+        # is a bit of a lift we don't need. Slimmed version of get_all_team_submissions? maybe just the custom one.
+        # It would be convenient if we just had the team id on the staff team workflow. That's a thought! 
+        
 
         # Do a bulk fetch of the assessments linked to the workflows, including all connected
         # Rubric, Criteria, and Option models
+        # This should also be fine. We have assessment ids, thats all this cares about.
         assessments_by_submission_uuid = self.bulk_deep_fetch_assessments(assessment_ids)
 
+        # THis is gonna be gone anyways, but we're gonna need something for the team name in the context.
         response = {}
         for workflow in staff_workflows:
             workflow_dict = {
@@ -204,6 +213,7 @@ class StaffGraderMixin:
             else:
                 workflow_dict['score'] = dict()
 
+            # Change this to "identifying uuid"
             response[workflow.submission_uuid] = workflow_dict
 
         return response
@@ -227,11 +237,13 @@ class StaffGraderMixin:
         # "current" workflow
         student_item_dict = self.get_student_item_dict()
         newest_lock = SubmissionGradingLock.currently_active().filter(
-            submission_uuid=OuterRef('submission_uuid')
+            submission_uuid=OuterRef('submission_uuid') # This won't work, it'l have to be changed to team_subission_uuid. We could do an "OR", or parameterize this field?
         ).order_by(
             '-created_at'
         )
 
+        # This is still fine, all of this should still work. The TeamStaffWorkflow is a StaffWorkflow
+        # and it has an Assessment
         staff_workflows = StaffWorkflow.objects.filter(
             course_id=student_item_dict['course_id'],
             item_id=student_item_dict['item_id'],
@@ -301,6 +313,7 @@ class StaffGraderMixin:
         }
         """
         try:
+            # check if this is a team submission ORA and if it is, call get_team_submission rather than get_submission
             submission = get_submission(submission_uuid)
             answer = OraSubmissionAnswerFactory.parse_submission_raw_answer(submission.get('answer'))
         except SubmissionError as err:
@@ -338,6 +351,9 @@ class StaffGraderMixin:
         course_id = student_item_dict['course_id']
         item_id = student_item_dict['item_id']
         try:
+            # This is a little annoying. We don't have an equivalent for teams.
+            # Create a TeamStaffWorkflow.get_team_staff_workflow that accepts and querys on team submission uuid.
+            # Then call that if we have a team assignment. Everything else shouuld follow from that.
             workflow = StaffWorkflow.get_staff_workflow(course_id, item_id, submission_uuid)
         except StaffWorkflow.DoesNotExist as ex:
             msg = f"No gradeable submission found with uuid={submission_uuid} in course={course_id} item={item_id}"
