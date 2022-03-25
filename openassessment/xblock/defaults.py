@@ -2,58 +2,58 @@
 # pylint: disable=line-too-long
 
 DEFAULT_PROMPT = """
-    Censorship in the Libraries
+    Цензура в библиотеках
 
-    'All of us can think of a book that we hope none of our children or any other children have taken off the shelf. But if I have the right to remove that book from the shelf -- that work I abhor -- then you also have exactly the same right and so does everyone else. And then we have no books left on the shelf for any of us.' --Katherine Paterson, Author
+    'Каждый из нас может вспомнить книгу, которую, как мы надеемся, никто из наших детей или других детей не взял с полки. Но если я имею право убрать с полки эту книгу - то есть то произведение, которое мне отвратительно, - то и вы имеете точно такое же право, и все остальные тоже. И тогда на полке не останется книг ни для кого из нас'. --Кэтрин Патерсон, автор
 
-    Write a persuasive essay to a newspaper reflecting your views on censorship in libraries. Do you believe that certain materials, such as books, music, movies, magazines, etc., should be removed from the shelves if they are found offensive? Support your position with convincing arguments from your own experience, observations, and/or reading.
+    Напишите убедительное эссе для газеты, отражающее ваши взгляды на цензуру в библиотеках. Считаете ли вы, что определенные материалы, такие как книги, музыка, фильмы, журналы и т.д., должны убираться с полок, если они признаны оскорбительными? Подкрепите свою позицию убедительными аргументами из собственного опыта, наблюдений и/или прочитанного.
 
-    Read for conciseness, clarity of thought, and form.
+    Читайте для краткости, ясности мысли и формы.
 """  # nopep8
 
 DEFAULT_RUBRIC_CRITERIA = [
     {
-        'name': "Ideas",
-        'label': "Ideas",
-        'prompt': "Determine if there is a unifying theme or main idea.",
+        'name': "Идеи",
+        'label': "Идеи",
+        'prompt': "Определите, есть ли объединяющая тема или главная идея.",
         'order_num': 0,
         'feedback': 'optional',
         'options': [
             {
-                'order_num': 0, 'points': 0, 'name': 'Poor', 'label': 'Poor',
-                'explanation': """Difficult for the reader to discern the main idea.  Too brief or too repetitive to establish or maintain a focus."""  # nopep8
+                'order_num': 0, 'points': 0, 'name': 'Плохо', 'label': 'Плохо',
+                'explanation': """Читателю трудно выделить главную идею.  Слишком краткое или слишком повторяющееся изложение, чтобы установить или удержать внимание."""  # nopep8
             },
             {
-                'order_num': 1, 'points': 3, 'name': 'Fair', 'label': 'Fair',
-                'explanation': """Presents a unifying theme or main idea, but may include minor tangents.  Stays somewhat focused on topic and task."""  # nopep8
+                'order_num': 1, 'points': 3, 'name': 'Неплохо', 'label': 'Неплохо',
+                'explanation': """Представляет объединяющую тему или главную идею, но может включать незначительные отступления.  В некоторой степени концентрируется на теме и задаче."""  # nopep8
             },
             {
-                'order_num': 2, 'points': 5, 'name': 'Good', 'label': 'Good',
-                'explanation': """Presents a unifying theme or main idea without going off on tangents.  Stays completely focused on topic and task."""  # nopep8
+                'order_num': 2, 'points': 5, 'name': 'Хорошо', 'label': 'Хорошо',
+                'explanation': """Представляет объединяющую тему или главную идею, не уклоняясь в сторону.  Остается полностью сосредоточенным на теме и задаче."""  # nopep8
             },
         ],
     },
     {
-        'name': "Content",
-        'label': "Content",
-        'prompt': "Assess the content of the submission",
+        'name': "Содержание",
+        'label': "Содержание",
+        'prompt': "Оцените содержание представленного материала",
         'order_num': 1,
         'options': [
             {
-                'order_num': 0, 'points': 0, 'name': 'Poor', 'label': 'Poor',
-                'explanation': """Includes little information with few or no details or unrelated details.  Unsuccessful in attempts to explore any facets of the topic."""  # nopep8
+                'order_num': 0, 'points': 0, 'name': 'Плохо', 'label': 'Плохо',
+                'explanation': """Содержит мало информации с небольшим количеством деталей или вообще без них или с несвязанными деталями.  Неудачные попытки исследовать какие-либо аспекты темы."""  # nopep8
             },
             {
-                'order_num': 1, 'points': 1, 'name': 'Fair', 'label': 'Fair',
-                'explanation': """Includes little information and few or no details.  Explores only one or two facets of the topic."""  # nopep8
+                'order_num': 1, 'points': 1, 'name': 'Неплохо', 'label': 'Неплохо',
+                'explanation': """Содержит мало информации и мало или совсем нет деталей.  Исследует только один или два аспекта темы."""  # nopep8
             },
             {
-                'order_num': 2, 'points': 3, 'name': 'Good', 'label': 'Good',
-                'explanation': """Includes sufficient information and supporting details. (Details may not be fully developed; ideas may be listed.)  Explores some facets of the topic."""  # nopep8
+                'order_num': 2, 'points': 3, 'name': 'Хорошо', 'label': 'Хорошо',
+                'explanation': """Включает достаточное количество информации и вспомогательных деталей. (Детали могут быть не полностью проработаны; идеи могут быть перечислены). Исследует некоторые аспекты темы."""  # nopep8
             },
             {
-                'order_num': 3, 'points': 5, 'name': 'Excellent', 'label': 'Excellent',
-                'explanation': """Includes in-depth information and exceptional supporting details that are fully developed.  Explores all facets of the topic."""  # nopep8
+                'order_num': 3, 'points': 5, 'name': 'Отлично', 'label': 'Отлично',
+                'explanation': """Включает глубокую информацию и исключительные вспомогательные детали, которые полностью проработаны.  Исследует все аспекты темы."""  # nopep8
             },
         ],
     },
@@ -62,25 +62,25 @@ DEFAULT_RUBRIC_CRITERIA = [
 # The rubric's feedback prompt is a set of instructions letting the student
 # know they can provide additional free form feedback in their assessment.
 DEFAULT_RUBRIC_FEEDBACK_PROMPT = """
-(Optional) What aspects of this response stood out to you? What did it do well? How could it be improved?
+(Необязательно) Какие аспекты этого ответа привлекли ваше внимание? Что в нем было сделано хорошо? Как его можно улучшить?
 """
 
 # The rubric's feedback text is the default text displayed and used as
 # the student's response to the feedback prompt
 DEFAULT_RUBRIC_FEEDBACK_TEXT = """
-I think that this response...
+Я думаю, что этот ответ...
 """
 
 DEFAULT_EXAMPLE_ANSWER = (
-    "Replace this text with your own sample response for this assignment. "
-    "Then, under Response Score to the right, select an option for each criterion. "
-    "Learners practice performing peer assessments by assessing this response and comparing "
-    "the options that they select in the rubric with the options that you specified."
+    "Замените этот текст своим собственным образцом ответа для этого задания. "
+    "Затем в разделе Оценка ответа справа выберите вариант для каждого критерия. "
+    "Обучающиеся практикуются в выполнении взаимных оценок, оценивая этот ответ и сравнивая его "
+    "варианты, которые они выбирают в рубрике, с вариантами, которые вы указали."
 )
 
 DEFAULT_EXAMPLE_ANSWER_2 = (
-    "Replace this text with another sample response, "
-    "and then specify the options that you would select for this response."
+    "Замените этот текст другим образцом ответа, "
+    "а затем укажите варианты, которые вы выбрали бы для этого ответа."
 )
 
 DEFAULT_STUDENT_TRAINING = {
@@ -92,12 +92,12 @@ DEFAULT_STUDENT_TRAINING = {
             "answer": DEFAULT_EXAMPLE_ANSWER,
             "options_selected": [
                 {
-                    "criterion": "Ideas",
-                    "option": "Fair"
+                    "criterion": "Идеи",
+                    "option": "Неплохо"
                 },
                 {
-                    "criterion": "Content",
-                    "option": "Good"
+                    "criterion": "Содержание",
+                    "option": "Хорошо"
                 }
             ]
         },
@@ -105,12 +105,12 @@ DEFAULT_STUDENT_TRAINING = {
             "answer": DEFAULT_EXAMPLE_ANSWER_2,
             "options_selected": [
                 {
-                    "criterion": "Ideas",
-                    "option": "Poor"
+                    "criterion": "Идеи",
+                    "option": "Плохо"
                 },
                 {
-                    "criterion": "Content",
-                    "option": "Good"
+                    "criterion": "Содержание",
+                    "option": "Хорошо"
                 }
             ]
         }
